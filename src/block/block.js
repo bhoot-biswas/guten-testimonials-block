@@ -11,21 +11,12 @@ import {
 /**
  * Internal dependencies
  */
-import metadata from './block.json';
 import icon from './icon';
 import edit from './edit';
-import save from './save';
 
 //  Import CSS.
 import './editor.scss';
 import './style.scss';
-
-
-const {
-	name,
-	category,
-	attributes
-} = metadata;
 
 /**
  * Register: a Gutenberg Block.
@@ -43,14 +34,12 @@ const {
 registerBlockType(name, {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __('testimonials-block - Gutenberg Block'), // Block title.
-	description: __('Cards provide a flexible and extensible content container with multiple variants and options.'),
+	description: __('The Testimonial Block lets you easily share your social proof by letting your site visitors know what other people say about you.'),
 	icon, // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
-	category, // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	category: 'widgets', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__('testimonials-block — Gutenberg Card'),
+		__('testimonials-block — Gutenberg Testimonials'),
 		__('create-guten-block'),
 	],
-	attributes,
 	edit,
-	save,
 });
