@@ -1,5 +1,5 @@
 {
-	"name": "bengal-studio/card",
+	"name": "bengal-studio/testimonials",
 	"category": "common",
 	"attributes": {
 		"url": {
@@ -31,12 +31,6 @@
 		},
 		"minHeight": {
 			"type": "number"
-		},
-		"cardTitle": {
-			"type": "string",
-			"source": "html",
-			"selector": ".bengal-studio-card__title",
-			"default": ""
 		}
 	}
 }
