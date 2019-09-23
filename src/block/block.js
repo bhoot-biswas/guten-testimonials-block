@@ -31,7 +31,7 @@ import './style.scss';
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType(name, {
+registerBlockType('bengal-studio/testimonials', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __('testimonials-block - Gutenberg Block'), // Block title.
 	description: __('The Testimonial Block lets you easily share your social proof by letting your site visitors know what other people say about you.'),
@@ -41,5 +41,10 @@ registerBlockType(name, {
 		__('testimonials-block — Gutenberg Testimonials'),
 		__('create-guten-block'),
 	],
+	supports: {
+		align: [ 'full' ],
+		html: false,
+	},
 	edit,
+	save: () => null, // to use view.php
 });

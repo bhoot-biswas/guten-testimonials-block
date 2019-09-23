@@ -9,3 +9,34 @@
  *
  * CSS for both Frontend+Backend.
  */
+.wp-block-bengal-studio-testimonials {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  background-color: #1b1751; }
+  .wp-block-bengal-studio-testimonials__headline {
+    color: #fff; }
+
+.wp-block-bengal-studio-testimonial {
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background-color: #fff; }
+  .wp-block-bengal-studio-testimonial__media {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+        align-items: flex-start; }
+  .wp-block-bengal-studio-testimonial__media-body {
+    -ms-flex: 1;
+        flex: 1; }
+  .wp-block-bengal-studio-testimonial__avatar {
+    margin-right: 1rem;
+    border-radius: 50%;
+    width: 4rem; }
+  .wp-block-bengal-studio-testimonial__meta {
+    margin-bottom: 1rem; }
+  .wp-block-bengal-studio-testimonial__title {
+    margin-bottom: 0.75rem; }
+  .wp-block-bengal-studio-testimonial__position {
+    margin-top: -0.375rem; }
+  .wp-block-bengal-studio-testimonial__bottom {
+    text-align: center; }

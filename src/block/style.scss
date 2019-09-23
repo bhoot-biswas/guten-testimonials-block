@@ -3,3 +3,50 @@
  *
  * CSS for both Frontend+Backend.
  */
+
+.wp-block-bengal-studio-testimonials {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+    background-color: #1b1751;
+
+    &__headline {
+        color: $white;
+    }
+}
+
+.wp-block-bengal-studio-testimonial {
+    margin-bottom: 2rem;
+    padding: $card-spacer-x;
+    background-color: $white;
+
+    &__media {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    &__media-body {
+        flex: 1;
+    }
+
+    &__avatar {
+        margin-right: 1rem;
+        border-radius: 50%;
+        width: 4rem;
+    }
+
+    &__meta {
+        margin-bottom: 1rem;
+    }
+
+    &__title {
+        margin-bottom: $card-spacer-y;
+    }
+
+    &__position {
+        margin-top: -$card-spacer-y / 2;
+    }
+
+    &__bottom {
+        text-align: center;
+    }
+}

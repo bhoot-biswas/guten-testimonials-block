@@ -20,4 +20,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Block Initializer.
  */
+require_once plugin_dir_path( __FILE__ ) . 'src/block/view.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/init.php';

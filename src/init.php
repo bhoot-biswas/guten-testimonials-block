@@ -75,17 +75,93 @@ function testimonials_block_cgb_block_assets() { // phpcs:ignore
 	 * @since 1.16.0
 	 */
 	register_block_type(
-		'bengal-studio/testimonials-block',
+		'bengal-studio/testimonials',
 		[
 			// Enqueue blocks.style.build.css on both frontend & backend.
-			'style'         => 'testimonials_block-cgb-style-css',
+			'style'           => 'testimonials_block-cgb-style-css',
 			// Enqueue blocks.build.js in the editor only.
-			'editor_script' => 'testimonials_block-cgb-block-js',
+			'editor_script'   => 'testimonials_block-cgb-block-js',
 			// Enqueue blocks.editor.build.css in the editor only.
-			'editor_style'  => 'testimonials_block-cgb-block-editor-css',
+			'editor_style'    => 'testimonials_block-cgb-block-editor-css',
+			// Render callback.
+			'render_callback' => 'testimonials_block_cgb_render_callback',
+			'attributes'      => array(
+				'align'                   => array(
+					'type' => 'string',
+					'enum' => array( 'left', 'center', 'right', 'wide', 'full' ),
+				),
+				'className'               => array(
+					'type' => 'string',
+				),
+				'categories'              => array(
+					'type' => 'string',
+				),
+				'postsToShow'             => array(
+					'type'    => 'number',
+					'default' => 5,
+				),
+				'displayPostContent'      => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'displayPostContentRadio' => array(
+					'type'    => 'string',
+					'default' => 'excerpt',
+				),
+				'excerptLength'           => array(
+					'type'    => 'number',
+					'default' => 55,
+				),
+				'displayPostDate'         => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'postLayout'              => array(
+					'type'    => 'string',
+					'default' => 'list',
+				),
+				'columns'                 => array(
+					'type'    => 'number',
+					'default' => 3,
+				),
+				'order'                   => array(
+					'type'    => 'string',
+					'default' => 'desc',
+				),
+				'orderBy'                 => array(
+					'type'    => 'string',
+					'default' => 'date',
+				),
+			),
 		]
 	);
 }
 
 // Hook: Block assets.
 add_action( 'init', 'testimonials_block_cgb_block_assets' );
+
+add_action( 'rest_api_init', 'testimonials_block_cgb_create_api_posts_meta_field' );
+
+/**
+ * [testimonials_block_cgb_create_api_posts_meta_field description]
+ * @return [type] [description]
+ */
+function testimonials_block_cgb_create_api_posts_meta_field() {
+	// register_rest_field ( 'name-of-post-type', 'name-of-field-to-return', array-of-callbacks-and-schema() )
+	register_rest_field(
+		'jetpack-testimonial',
+		'thumbnail_url',
+		array(
+			'get_callback' => 'get_testimonial_thumbnail_url_for_api',
+			'schema'       => null,
+		)
+	);
+}
+
+function get_testimonial_thumbnail_url_for_api( $object ) {
+	//get the id of the post object array
+	$post_id = $object['id'];
+
+	//return the post meta
+	return get_the_post_thumbnail_url( $post_id, 'thumbnail' );
+}
