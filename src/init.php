@@ -86,49 +86,30 @@ function testimonials_block_cgb_block_assets() { // phpcs:ignore
 			// Render callback.
 			'render_callback' => 'testimonials_block_cgb_render_callback',
 			'attributes'      => array(
-				'align'                   => array(
+				'align'             => array(
 					'type' => 'string',
-					'enum' => array( 'left', 'center', 'right', 'wide', 'full' ),
+					'enum' => array( 'full' ),
 				),
-				'className'               => array(
-					'type' => 'string',
-				),
-				'categories'              => array(
+				'className'         => array(
 					'type' => 'string',
 				),
-				'postsToShow'             => array(
+				'postsToShow'       => array(
 					'type'    => 'number',
 					'default' => 5,
 				),
-				'displayPostContent'      => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'displayPostContentRadio' => array(
-					'type'    => 'string',
-					'default' => 'excerpt',
-				),
-				'excerptLength'           => array(
-					'type'    => 'number',
-					'default' => 55,
-				),
-				'displayPostDate'         => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'postLayout'              => array(
+				'testimonialLayout' => array(
 					'type'    => 'string',
 					'default' => 'list',
 				),
-				'columns'                 => array(
+				'columns'           => array(
 					'type'    => 'number',
 					'default' => 3,
 				),
-				'order'                   => array(
+				'order'             => array(
 					'type'    => 'string',
 					'default' => 'desc',
 				),
-				'orderBy'                 => array(
+				'orderBy'           => array(
 					'type'    => 'string',
 					'default' => 'date',
 				),

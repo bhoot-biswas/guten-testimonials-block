@@ -7,6 +7,9 @@ import {
 import {
 	registerBlockType
 } from '@wordpress/blocks';
+import {
+	InnerBlocks,
+} from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -46,5 +49,14 @@ registerBlockType('bengal-studio/testimonials', {
 		html: false,
 	},
 	edit,
-	save: () => null, // to use view.php
+	save: ( { attributes } ) => {
+		const { align } = attributes;
+		if ( align === 'full' ) {
+			return (
+				<InnerBlocks.Content />
+			);
+		}
+
+		return null;
+	},
 });

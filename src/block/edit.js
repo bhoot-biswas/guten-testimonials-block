@@ -25,103 +25,41 @@ import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
 import {
 	InspectorControls,
 	BlockControls,
+	InnerBlocks,
 } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
 
 /**
  * Module Constants
  */
-const CATEGORIES_LIST_QUERY = {
-	per_page: -1,
-};
 const MAX_POSTS_COLUMNS = 6;
+const ALLOWED_BLOCKS = [ 'core/heading', 'core/paragraph', 'core/button' ];
+const INNER_BLOCKS_TEMPLATE = [
+	[ 'core/heading', {
+		placeholder: __( 'Write title…' ),
+	} ],
+];
 
 class TestimonialsEdit extends Component {
 	constructor() {
 		super( ...arguments );
-		this.state = {
-			categoriesList: [],
-		};
-	}
-
-	componentDidMount() {
-		this.isStillMounted = true;
-		this.fetchRequest = apiFetch( {
-			path: addQueryArgs( `/wp/v2/categories`, CATEGORIES_LIST_QUERY ),
-		} ).then(
-			( categoriesList ) => {
-				if ( this.isStillMounted ) {
-					this.setState( { categoriesList } );
-				}
-			}
-		).catch(
-			() => {
-				if ( this.isStillMounted ) {
-					this.setState( { categoriesList: [] } );
-				}
-			}
-		);
-	}
-
-	componentWillUnmount() {
-		this.isStillMounted = false;
 	}
 
 	render() {
 		const { attributes, setAttributes, latestPosts } = this.props;
-		const { categoriesList } = this.state;
-		const { displayPostContentRadio, displayPostContent, displayPostDate, postLayout, columns, order, orderBy, categories, postsToShow, excerptLength } = attributes;
+		const { testimonialLayout, columns, order, orderBy, postsToShow, align } = attributes;
 
 		const inspectorControls = (
 			<InspectorControls>
-				<PanelBody title={ __( 'Post Content Settings' ) }>
-					<ToggleControl
-						label={ __( 'Post Content' ) }
-						checked={ displayPostContent }
-						onChange={ ( value ) => setAttributes( { displayPostContent: value } ) }
-					/>
-					{ displayPostContent &&
-					<RadioControl
-						label="Show:"
-						selected={ displayPostContentRadio }
-						options={ [
-							{ label: 'Excerpt', value: 'excerpt' },
-							{ label: 'Full Post', value: 'full_post' },
-						] }
-						onChange={ ( value ) => setAttributes( { displayPostContentRadio: value } ) }
-					/>
-					}
-					{ displayPostContent && displayPostContentRadio === 'excerpt' &&
-						<RangeControl
-							label={ __( 'Max number of words in excerpt' ) }
-							value={ excerptLength }
-							onChange={ ( value ) => setAttributes( { excerptLength: value } ) }
-							min={ 10 }
-							max={ 100 }
-						/>
-					}
-				</PanelBody>
-
-				<PanelBody title={ __( 'Post Meta Settings' ) }>
-					<ToggleControl
-						label={ __( 'Display post date' ) }
-						checked={ displayPostDate }
-						onChange={ ( value ) => setAttributes( { displayPostDate: value } ) }
-					/>
-				</PanelBody>
-
 				<PanelBody title={ __( 'Sorting and Filtering' ) }>
 					<QueryControls
 						{ ...{ order, orderBy } }
 						numberOfItems={ postsToShow }
-						categoriesList={ categoriesList }
-						selectedCategoryId={ categories }
 						onOrderChange={ ( value ) => setAttributes( { order: value } ) }
 						onOrderByChange={ ( value ) => setAttributes( { orderBy: value } ) }
-						onCategoryChange={ ( value ) => setAttributes( { categories: '' !== value ? value : undefined } ) }
 						onNumberOfItemsChange={ ( value ) => setAttributes( { postsToShow: value } ) }
 					/>
-					{ postLayout === 'grid' &&
+					{ testimonialLayout === 'grid' &&
 						<RangeControl
 							label={ __( 'Columns' ) }
 							value={ columns }
@@ -162,46 +100,38 @@ class TestimonialsEdit extends Component {
 			{
 				icon: 'list-view',
 				title: __( 'List view' ),
-				onClick: () => setAttributes( { postLayout: 'list' } ),
-				isActive: postLayout === 'list',
+				onClick: () => setAttributes( { testimonialLayout: 'list' } ),
+				isActive: testimonialLayout === 'list',
 			},
 			{
 				icon: 'grid-view',
 				title: __( 'Grid view' ),
-				onClick: () => setAttributes( { postLayout: 'grid' } ),
-				isActive: postLayout === 'grid',
+				onClick: () => setAttributes( { testimonialLayout: 'grid' } ),
+				isActive: testimonialLayout === 'grid',
 			},
 		];
 
-		const dateFormat = __experimentalGetSettings().formats.date;
-
-		return (
-			<Fragment>
-				{ inspectorControls }
-				<BlockControls>
-					<Toolbar controls={ layoutControls } />
-				</BlockControls>
-				<ul
-					className={ classnames( this.props.className, {
-						'wp-block-latest-posts__list': true,
-						'is-grid': postLayout === 'grid',
-						'has-dates': displayPostDate,
-						[ `columns-${ columns }` ]: postLayout === 'grid',
-					} ) }
-				>
-					{ displayPosts.map( ( post, i ) => {
-						const titleTrimmed = post.title.rendered.trim();
-						let excerpt = post.excerpt.rendered;
-						if ( post.excerpt.raw === '' ) {
-							excerpt = post.content.raw;
-						}
-						const excerptElement = document.createElement( 'div' );
-						excerptElement.innerHTML = excerpt;
-						excerpt = excerptElement.textContent || excerptElement.innerText || '';
-						const featuredImageSrc = post.thumbnail_url || '';
-						console.log(post.featured_image_urls);
-						return (
-							<div key={ i } className="wp-block-bengal-studio-testimonial">
+		const testimonials = (
+			<div
+				className={ classnames( this.props.className, {
+					'wp-block-bengal-studio-testimonials__list': true,
+					'is-grid': testimonialLayout === 'grid',
+					[ `columns-${ columns }` ]: testimonialLayout === 'grid',
+				} ) }
+			>
+				{ displayPosts.map( ( post, i ) => {
+					const titleTrimmed = post.title.rendered.trim();
+					let excerpt = post.excerpt.rendered;
+					if ( post.excerpt.raw === '' ) {
+						excerpt = post.content.raw;
+					}
+					const excerptElement = document.createElement( 'div' );
+					excerptElement.innerHTML = excerpt;
+					excerpt = excerptElement.textContent || excerptElement.innerText || '';
+					const featuredImageSrc = post.thumbnail_url || '';
+					return (
+						<div key={ i } className="wp-block-bengal-studio-testimonial">
+							<div className="wp-block-bengal-studio-testimonial__inner">
 								<div className="wp-block-bengal-studio-testimonial__media">
 									{ featuredImageSrc && (
 										<img
@@ -233,9 +163,51 @@ class TestimonialsEdit extends Component {
 									</div>
 								</div>
 							</div>
-						);
-					} ) }
-				</ul>
+						</div>
+					);
+				} ) }
+			</div>
+		);
+
+		if ( align === 'full' ) {
+			return (
+				<Fragment>
+					{ inspectorControls }
+					<BlockControls>
+						<Toolbar controls={ layoutControls } />
+					</BlockControls>
+					<div className="wp-block-bengal-studio-testimonials__wrapper">
+						<div className="container">
+							<div className="wp-block-bengal-studio-testimonials__wrapper-inner">
+								<div className="wp-block-bengal-studio-testimonials__wrapper-left">
+									<InnerBlocks
+										template={ INNER_BLOCKS_TEMPLATE }
+										allowedBlocks={ ALLOWED_BLOCKS }
+									/>
+								</div>
+								<div className="wp-block-bengal-studio-testimonials__wrapper-right">
+									{ testimonials }
+								</div>
+							</div>
+
+							<div className="wp-block-bengal-studio-testimonials__wrapper-bottom">
+								<div className="wp-block-bengal-studio-testimonials__wrapper-bottom-inner">
+									<a className="btn btn-outline-light" href="#">More Client Success Stories</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</Fragment>
+			);
+		}
+
+		return (
+			<Fragment>
+				{ inspectorControls }
+				<BlockControls>
+					<Toolbar controls={ layoutControls } />
+				</BlockControls>
+				{ testimonials }
 			</Fragment>
 		);
 	}

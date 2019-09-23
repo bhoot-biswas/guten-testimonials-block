@@ -9,17 +9,76 @@
  *
  * CSS for both Frontend+Backend.
  */
-.wp-block-bengal-studio-testimonials {
+.wp-block-bengal-studio-testimonials__wrapper {
   padding-top: 7rem;
   padding-bottom: 7rem;
-  background-color: #1b1751; }
-  .wp-block-bengal-studio-testimonials__headline {
-    color: #fff; }
+  background-color: #1b1751;
+  color: #fff; }
+  .wp-block-bengal-studio-testimonials__wrapper-left {
+    margin-bottom: 2rem; }
+
+.wp-block-bengal-studio-testimonials__headline {
+  color: #fff; }
+
+@media (min-width: 992px) {
+  .wp-block-bengal-studio-testimonials__wrapper-inner, .wp-block-bengal-studio-testimonials__wrapper-bottom {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px; }
+  .wp-block-bengal-studio-testimonials__wrapper-inner {
+    -ms-flex-align: center;
+        align-items: center; }
+  .wp-block-bengal-studio-testimonials__wrapper-bottom {
+    -ms-flex-pack: end;
+        justify-content: flex-end; }
+  .wp-block-bengal-studio-testimonials__wrapper-left, .wp-block-bengal-studio-testimonials__wrapper-right, .wp-block-bengal-studio-testimonials__wrapper-bottom-inner {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px; }
+  .wp-block-bengal-studio-testimonials__wrapper-left {
+    -ms-flex: 0 0 33.33333%;
+        flex: 0 0 33.33333%;
+    max-width: 33.33333%; }
+  .wp-block-bengal-studio-testimonials__wrapper-right, .wp-block-bengal-studio-testimonials__wrapper-bottom-inner {
+    -ms-flex: 0 0 66.66667%;
+        flex: 0 0 66.66667%;
+    max-width: 66.66667%; }
+  .wp-block-bengal-studio-testimonials__wrapper-bottom-inner {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center; }
+  .wp-block-bengal-studio-testimonials__list.is-grid {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px; }
+    .wp-block-bengal-studio-testimonials__list.is-grid .wp-block-bengal-studio-testimonial {
+      position: relative;
+      width: 100%;
+      padding-right: 15px;
+      padding-left: 15px; }
+  .wp-block-bengal-studio-testimonials__list.columns-2 .wp-block-bengal-studio-testimonial {
+    -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+    max-width: 50%; }
+  .wp-block-bengal-studio-testimonials__list.columns-3 .wp-block-bengal-studio-testimonial {
+    -ms-flex: 0 0 33.33333%;
+        flex: 0 0 33.33333%;
+    max-width: 33.33333%; } }
 
 .wp-block-bengal-studio-testimonial {
   margin-bottom: 2rem;
-  padding: 1.25rem;
-  background-color: #fff; }
+  color: #212529; }
+  .wp-block-bengal-studio-testimonial__inner {
+    padding: 1.25rem;
+    background-color: #fff; }
   .wp-block-bengal-studio-testimonial__media {
     display: -ms-flexbox;
     display: flex;
