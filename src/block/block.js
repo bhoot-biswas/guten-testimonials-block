@@ -44,19 +44,6 @@ registerBlockType('bengal-studio/testimonials', {
 		__('testimonials-block — Gutenberg Testimonials'),
 		__('create-guten-block'),
 	],
-	supports: {
-		align: [ 'full' ],
-		html: false,
-	},
 	edit,
-	save: ( { attributes } ) => {
-		const { align } = attributes;
-		if ( align === 'full' ) {
-			return (
-				<InnerBlocks.Content />
-			);
-		}
-
-		return null;
-	},
+	save: () => null,
 });

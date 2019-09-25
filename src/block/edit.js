@@ -33,12 +33,6 @@ import { withSelect } from '@wordpress/data';
  * Module Constants
  */
 const MAX_POSTS_COLUMNS = 6;
-const ALLOWED_BLOCKS = [ 'core/heading', 'core/paragraph', 'core/button' ];
-const INNER_BLOCKS_TEMPLATE = [
-	[ 'core/heading', {
-		placeholder: __( 'Write title…' ),
-	} ],
-];
 
 class TestimonialsEdit extends Component {
 	constructor() {
@@ -47,7 +41,7 @@ class TestimonialsEdit extends Component {
 
 	render() {
 		const { attributes, setAttributes, latestPosts } = this.props;
-		const { testimonialLayout, columns, order, orderBy, postsToShow, align } = attributes;
+		const { testimonialLayout, columns, order, orderBy, postsToShow } = attributes;
 
 		const inspectorControls = (
 			<InspectorControls>
@@ -80,11 +74,11 @@ class TestimonialsEdit extends Component {
 					{ inspectorControls }
 					<Placeholder
 						icon="admin-post"
-						label={ __( 'Latest Posts' ) }
+						label={ __( 'Testimonials' ) }
 					>
 						{ ! Array.isArray( latestPosts ) ?
 							<Spinner /> :
-							__( 'No posts found.' )
+							__( 'No testimonials found.' )
 						}
 					</Placeholder>
 				</Fragment>
@@ -141,26 +135,24 @@ class TestimonialsEdit extends Component {
 										/>
 									) }
 									<div className="wp-block-bengal-studio-testimonial__media-body">
-										<div className="wp-block-bengal-studio-testimonial__meta">
-											<h4 className="wp-block-bengal-studio-testimonial__name">
-												{ titleTrimmed ? (
-													<RawHTML>
-														{ titleTrimmed }
-													</RawHTML>
-												) :
-													__( '(no title)' )
-												}
-											</h4>
-											<span className="wp-block-bengal-studio-testimonial__position">Company CEO</span>
-										</div>
-										<div className="wp-block-bengal-studio-testimonial__body">
-											<RawHTML
-												key="html"
-											>
-												{ post.content.raw.trim() }
-											</RawHTML>
-										</div>
+										<h4 className="wp-block-bengal-studio-testimonial__name">
+											{ titleTrimmed ? (
+												<RawHTML>
+													{ titleTrimmed }
+												</RawHTML>
+											) :
+												__( '(no title)' )
+											}
+										</h4>
+										<span className="wp-block-bengal-studio-testimonial__position">Company CEO</span>
 									</div>
+								</div>
+								<div className="wp-block-bengal-studio-testimonial__body">
+									<RawHTML
+										key="html"
+									>
+										{ post.content.raw.trim() }
+									</RawHTML>
 								</div>
 							</div>
 						</div>
@@ -168,38 +160,6 @@ class TestimonialsEdit extends Component {
 				} ) }
 			</div>
 		);
-
-		if ( align === 'full' ) {
-			return (
-				<Fragment>
-					{ inspectorControls }
-					<BlockControls>
-						<Toolbar controls={ layoutControls } />
-					</BlockControls>
-					<div className="wp-block-bengal-studio-testimonials__wrapper">
-						<div className="container">
-							<div className="wp-block-bengal-studio-testimonials__wrapper-inner">
-								<div className="wp-block-bengal-studio-testimonials__wrapper-left">
-									<InnerBlocks
-										template={ INNER_BLOCKS_TEMPLATE }
-										allowedBlocks={ ALLOWED_BLOCKS }
-									/>
-								</div>
-								<div className="wp-block-bengal-studio-testimonials__wrapper-right">
-									{ testimonials }
-								</div>
-							</div>
-
-							<div className="wp-block-bengal-studio-testimonials__wrapper-bottom">
-								<div className="wp-block-bengal-studio-testimonials__wrapper-bottom-inner">
-									<a className="btn btn-outline-light" href="#">More Client Success Stories</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</Fragment>
-			);
-		}
 
 		return (
 			<Fragment>
