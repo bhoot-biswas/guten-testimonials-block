@@ -69,7 +69,9 @@
         margin-top: -$card-spacer-y / 2;
     }
 
-    &__body {
-        padding-left: 5rem;
+    @include media-breakpoint-up(md) {
+        &__body {
+            padding-left: 5rem;
+        }        
     }
 }

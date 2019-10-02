@@ -58,5 +58,6 @@
     margin-bottom: 0.75rem; }
   .wp-block-bengal-studio-testimonial__position {
     margin-top: -0.375rem; }
-  .wp-block-bengal-studio-testimonial__body {
-    padding-left: 5rem; }
+  @media (min-width: 768px) {
+    .wp-block-bengal-studio-testimonial__body {
+      padding-left: 5rem; } }
